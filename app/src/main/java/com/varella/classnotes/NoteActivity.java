@@ -9,23 +9,37 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 /**
  * Created by Thiago- on 07/11/2017.
  */
 
 public class NoteActivity extends AppCompatActivity{
+    static ArrayList<Note> noteList = new ArrayList<>();
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
 
         final EditText edtTextTitle = findViewById(R.id.edt_title);
-        EditText edtTextDescription = findViewById(R.id.edt_description);
+        final EditText edtTextDescription = findViewById(R.id.edt_description);
         Button button = findViewById(R.id.button_save);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(NoteActivity.this, edtTextTitle.getText() + " Salvo", Toast.LENGTH_SHORT).show();
+                Note note = new Note();
+                String title = edtTextTitle.getText().toString();
+                String description = edtTextDescription.getText().toString();
+
+                note.setTitle(title);
+                note.setDescription(description);
+                Toast.makeText(
+                        NoteActivity.this,
+                        note.getTitle(),
+                        Toast.LENGTH_SHORT).show();
+                noteList.add(note);
                 finish();
             }
         });

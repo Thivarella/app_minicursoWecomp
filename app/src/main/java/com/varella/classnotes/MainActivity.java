@@ -2,11 +2,14 @@ package com.varella.classnotes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertController;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +26,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int size = NoteActivity.noteList.size();
+        Toast.makeText(this, "list size: "+size, Toast.LENGTH_SHORT).show();
     }
 
     @Override
