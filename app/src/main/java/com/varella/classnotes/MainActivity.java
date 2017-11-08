@@ -2,21 +2,29 @@ package com.varella.classnotes;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertController;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    NoteAdapter noteAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        new LinearLayoutManager(this);
+
+        noteAdapter = new NoteAdapter(NoteActivity.noteList,this);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(noteAdapter);
 
         Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -33,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         int size = NoteActivity.noteList.size();
         Toast.makeText(this, "list size: "+size, Toast.LENGTH_SHORT).show();
+        noteAdapter.notifyDataSetChanged();
     }
 
     @Override
